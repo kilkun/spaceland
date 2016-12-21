@@ -1,0 +1,7 @@
+# First number is the delay value (0-254)
+# Second number is the frame to display (000 = Base frame)
+
+  8 001
+  5 002
+ 12 001
+  3 000

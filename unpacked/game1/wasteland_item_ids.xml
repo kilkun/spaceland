@@ -1,0 +1,21 @@
+<data>
+	<item name="7.62 ammo" id="0x1f">
+	<!--Weapons-->
+	<item name="Laser Rifle" id="0x1c">
+	<item name="Laser Carbine" id="0x1b">
+	<item name="Ion Beamer" id="0x1a">
+	<item name="Axe" id="0x01">
+	<item name="Proton Axe" id="0x03">
+	<item name="Spear" id="0x0e">
+	<item name="Knife" id="0x04">
+	<item name="M1911" id="0x0d">
+	<item name="9mm" id="0x10">
+	<item name="M17" id="0x12">
+	<item name="M19" id="0x13">
+	<item name="Crowbar" id="0x2d">
+	<!--Armor-->
+	<item name="Power Armor" id="0x23">
+	<item name="Bullet Proof Shirt" id="0x24">
+	<item name="Psuedo-Chitin" id="0x28">
+	<item name="Kevlar Vest" id="0x25">
+</data>

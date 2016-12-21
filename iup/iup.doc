@@ -1,0 +1,179 @@
+                    IUP v0.6.7 (1996/08/07)
+
+IUP means Intelligent(?) Executable Unpacker.
+Of course, it's not intelligent ! It's pure marketing :)
+
+TABLE OF CONTENTS
+-----------------
+[1] What is IUP
+[2] Status of IUP
+[3] Usage
+[4] Miscellaneous
+[5] Pointers
+[6] What IUP can remove
+[7] What IUP can't remove
+[8] How to fake IUP
+[9] Technics
+[10] Changes
+[11] Contact
+-----------------
+
+[1] What is IUP
+
+IUP is a generic executable unpacker. It can unpack compacted or encrypted
+executable file without knowledge about their compressor. It also unpack
+files that includes some anti-debugging traps (for instance, use of int 03).
+IUP has the CUP's "I'm alive" feature. When it is working, the NumLock led
+is blinking.
+
+
+[2] Status of IUP
+
+IUP executable and source code is public domain. Feel free to use it or
+modify it as you wish. But I'm not responsible for damage that can result
+by its use. I can just say you that it has never crash my hard drive
+yet. If you use it or modify it in an interresting way, please tell me.
+
+
+[3] Usage
+
+Usage is very simple:
+  iup [options] <program name>
+
+If the program can be successfully uncompressed, a new file with the
+same name is created. No backup done.
+Run iup without parameters to see available options.
+
+
+[4] Miscellaneous
+
+When the routine is a decryption one, target code size is always smaller.
+But I didn't found the way IUP can find that, so the target file has
+usually the same size as the source file.
+
+I've seen some strange results under QEMM. If it crashes, remove it from
+memory and try again. IUP is also 2 to 3 times slower under QEMM than
+in real mode.
+
+
+[5] Pointers
+
+See also:
+  - UNP v4.11 - can finish the work of IUP
+  - CUP v1.2 - sometimes succeed where IUP fails, but usually it's
+               the contrary case
+  - CUP386b - should be better then v1.2, but I had some problems
+              with it :(
+  - INFOEXE v1.31 - recognize some new compression formats that UNP
+                    doesn't know.
+
+
+[6] What IUP can remove
+
+Here's an very partial list of packers known to be removed by IUP.
+Unless specified, those versions are the unregistered ones.
+
+Routines IUP handle perfectly (size and relocation):
+  Elite 2.00S (COM)
+  Exepack - all versions I found (about 9)
+  JAM v2.11 (this one doesn't work on 486+)
+  LZEexe 0.90, 0.91, 1.00a
+  PKLite v1.50, v2.01 (and in fact all versions, shareware and commercial)
+  TinyProg v3.6, v3.9
+  UCExe v2.4
+  XPack 1.33, 134, 1.36 (COM)
+
+Routines IUP handle but with invalid size (always a few more than needed):
+  Axe 1.0/?.?/2.2 (this one is special, because compressed code is in the
+                   overlay, and this overlay is copied in the new file,
+                   so the new file is bigger than it should be)
+  Crypt v1.21
+  Diet - most versions
+  Elite 2.00S (EXE)
+  ExeCode 1.0 (COM)
+  NetCom v2.2, v2.3
+  Ice v1.00 (COM)
+  Pack 2.01 (EXE)
+  Protect! EXE/COM v3.0
+  protEXE v2.11 (with and without anti V8086 mode debuggers)
+  WWPack (both stages) 3.00, 3.01, 3.02, 3.02a,
+                       3.03 (PU), 3.04 (PU), 3.04a, 3.05b1 (PU)
+  and more ....
+
+
+[7] What IUP can't remove
+  Executrix (this one is special, because compressed code is in the
+             overlay, and this overlay is copied in the new, and
+             relocations codes are not found)
+  ExeHigh 1.01
+  ExeLock 1.00
+  Gabriel Angel v1.0b (stack playing)
+  XPack 1.33, 1.34, 1.36, 1.42, 1.44 (EXE)
+
+Note that with some short modifications in IUP's code or in unpacking
+routine, IUP can handle most of these.
+
+
+[8] How to fake IUP
+
+It is _easy_ to fake iup by
+  - using odd SP
+  - put the stack in the unpacker code
+  - play with prefetch queue (eg self modifying code to be executed)
+  - and more ...
+
+
+[9] Technics
+
+IUP is written in 386 real mode assembler. It uses int 01 to trace every
+program's instruction. It runs in one pass (against CUP 1.2 that
+use 3 passes) and is relatively faster (but not as UNP).
+There a jump table called jtOpcode where handlers for opcodes. Handlers can
+be easily included in that table.
+With that, iup can avoid stupid anti-debugging traps like IN and OUT.
+IUP can know when int 01 or 03 is catched by a routine and execute the code
+that should have been executed if an int 01 or int 03 occurs.
+
+
+[10] Changes
+
+Changes from v0.6.4 to 0.6.?? (the next to be released on simtelnet & garbo)
+  - minor bug fixes
+  - relocations were broken in an early version. Hope it is corrected.
+  - add handle for PUSHF, POPF, IN.
+  - add an example (ng_misha.inc) of how IUP can be adapted to a particular
+    routine (options -mish1 and -mish2).
+  - added code to handle options
+  - source in ideal mode
+
+
+Changes from v0.6.3 to 0.6.4
+  - some translations (finished)
+  - some code cleanup
+
+Changes from v0.6.2 to 0.6.3
+  - minor bug fixes (file size was sometimes incorrectly computed, ...)
+  - now approximates min and max paragraph requirement in exe header
+  - now the overlay is appended to the new file
+  - more translations
+
+Changes from v0.6.0 to 0.6.2
+  - minor bug fixes, and corrected a few typos
+  - improved speed (about 5% to 10%) by adding a jump table
+  - cleanup code
+  - some translations
+
+
+[11] Contact
+
+If you want to contact me:
+  by email:
+    Frank.Zago@masi.ibp.fr      (preferred)
+
+  by snail-mail (not the better solution):
+    M. Frank Zago
+    17, rue du cedre bleu
+    95100 ARGENTEUIL
+    FRANCE
+
+Enjoy IUP.
